@@ -1,0 +1,97 @@
+<main class="dedicatoria-page">
+	@if (!envelopeOpened()) {
+		<section class="envelope-scene" aria-label="Carta fechada">
+			<p class="envelope-hint">Tem uma carta pra você 💗</p>
+
+			<button
+				type="button"
+				class="envelope"
+				[class.opening]="envelopeOpening()"
+				(click)="openLetter()"
+				aria-label="Abrir carta com lacre de coração"
+			>
+				<span class="envelope-top"></span>
+				<span class="envelope-paper">
+					<span>Para Beatriz</span>
+				</span>
+				<span class="envelope-seal" aria-hidden="true">
+					<i class="fa-solid fa-heart"></i>
+				</span>
+			</button>
+
+			<p class="envelope-tip">Clique no lacre para abrir ✨</p>
+		</section>
+	}
+
+	@if (envelopeOpened()) {
+		<section class="card letter-reveal" aria-labelledby="titulo-dedicatoria">
+			<p class="tagline">
+				<i class="fa-solid fa-heart"></i>
+				Uma cartinha digital pra você
+			</p>
+
+			<h1 id="titulo-dedicatoria">Beatriz, me desculpa? 💌</h1>
+
+			<p class="subtitle">
+				Fiz essa página com carinho pra tentar transformar meu pedido de desculpas em
+				algo leve, bonito e cheio de amor.
+			</p>
+
+			<article class="message-box" aria-live="polite">
+				<p>{{ currentMessage() }}</p>
+			</article>
+
+			<div class="actions">
+				<button type="button" class="btn secondary" (click)="nextMessage()">
+					<i class="fa-regular fa-face-smile"></i>
+					Outra mensagem
+				</button>
+
+				<button type="button" class="btn secondary" (click)="launchHearts(14)">
+					<i class="fa-solid fa-wand-magic-sparkles"></i>
+					Chuva de amor
+				</button>
+			</div>
+
+			<button type="button" class="btn primary" (click)="forgiveMe()">
+				<svg class="btn-heart" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+					<path
+						d="M12 21s-6.7-4.4-9.4-8.4C.8 9.9 2 5.9 5.7 4.8c2-.6 4.1 0 5.3 1.6 1.2-1.6 3.3-2.2 5.3-1.6 3.7 1.1 4.9 5.1 3.1 7.8C18.7 16.6 12 21 12 21z"
+					/>
+				</svg>
+				Me perdoa?
+			</button>
+
+			@if (apologyAccepted()) {
+				<p class="accepted-message">
+					<i class="fa-solid fa-heart-circle-check"></i>
+					Obrigado por me ouvir. Vou fazer melhor daqui pra frente. 🌷
+				</p>
+			}
+
+			<footer class="signature">Com carinho, de alguém que se importa muito com você.</footer>
+		</section>
+	}
+
+	<div class="floating-hearts" aria-hidden="true">
+		@for (heart of hearts(); track heart.id) {
+			<span
+				class="heart"
+				[style.left.%]="heart.left"
+				[style.animation-duration.ms]="heart.duration"
+				[style.animation-delay.ms]="heart.delay"
+			>
+				<svg
+					class="heart-svg"
+					viewBox="0 0 24 24"
+					[style.width.px]="heart.size"
+					[style.height.px]="heart.size"
+				>
+					<path
+						d="M12 21s-6.7-4.4-9.4-8.4C.8 9.9 2 5.9 5.7 4.8c2-.6 4.1 0 5.3 1.6 1.2-1.6 3.3-2.2 5.3-1.6 3.7 1.1 4.9 5.1 3.1 7.8C18.7 16.6 12 21 12 21z"
+					/>
+				</svg>
+			</span>
+		}
+	</div>
+</main>
